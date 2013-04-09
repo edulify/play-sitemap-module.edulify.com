@@ -1,0 +1,14 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /index                      controllers.Application.index()
+GET     /article/:id                controllers.Application.showArticle(id: Long)
+POST    /add-article                controllers.Application.addArticle()
+
+# Sitemaps
+GET     /sitemap$suffix<[^/]*>.xml   com.edulify.modules.sitemap.SitemapController.sitemap(suffix: String)
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)

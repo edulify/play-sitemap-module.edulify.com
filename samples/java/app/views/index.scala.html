@@ -1,0 +1,24 @@
+@(articles: List[Article])
+
+<html>
+  <body>
+    @for(article <- articles) {
+      <div>
+        <a href="@routes.Application.showArticle(article.id)">@article.title</a>
+      </div>
+    }
+    <form action="/add-article" method="post">
+      <label>
+        Title
+        <input type="text" name="title" />
+      </label>
+      <br />
+      <label>
+        Text
+        <textarea name="content"></textarea>
+      </label>
+      <br />
+      <input type="submit">
+    </form>
+  </body>
+</html>
