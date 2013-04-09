@@ -34,7 +34,7 @@ public class SitemapJob implements Runnable {
       try {
         generator.writeSitemapsWithIndex();
       } catch (RuntimeException ex) {
-        play.Logger.error("Could not create sitemap index", ex);
+        play.Logger.warn("Could not create sitemap index");
       }
     } catch(MalformedURLException ex) {
       play.Logger.error("Oops! Can't create a sitemap generator for the given baseUrl " + baseUrl, ex);
