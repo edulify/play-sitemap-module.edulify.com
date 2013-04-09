@@ -50,12 +50,16 @@ public class SitemapJob implements Runnable {
     providers.add(new AnnotationUrlProvider());
 
     String allProvidersClasses = Play.application().configuration().getString("sitemap.providers");
-    String[] providerClasses = allProvidersClasses.split(",");
-    ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-    for (String provider : providerClasses) {
-      Class<?> clazz = classLoader.loadClass(provider);
-      Object providerInstance = clazz.newInstance();
-      providers.add((UrlProvider)providerInstance);
+    if (allProvidersClasses != null) {
+      String[] providerClasses = allProvidersClasses.split(",");
+      ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+      for (String provider : providerClasses) {
+        if (!"".equals(provider)) {
+          Class<?> clazz = classLoader.loadClass(provider);
+          Object providerInstance = clazz.newInstance();
+          providers.add((UrlProvider)providerInstance);
+        }
+      }
     }
     return providers;
   }
