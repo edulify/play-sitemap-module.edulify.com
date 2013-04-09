@@ -184,6 +184,12 @@ Or you can write your own file deliver. Just remember that the `sitemap_index.xm
 
 for a `baseUrl = http://www.example.com`.
 
+### Entry point
+
+Some search engines provide an interface to add the site's sitemap. If your site has no providers or you don't expect that the number of links reaches 50.000 (maximum number of links in each sitemap file), you can point such engines to your `sitemap.xml`. Otherwise, you must point to `sitemap_index.xml`, that will have the links the generated sitemaps.
+
+If you are using the `SitemapController` from the module, you can always use the `sitemap_index.xml` as the entry point for the search engines; when no sitemap_index is found, the `sitemap.xml` is automatically delivered.
+
 ## Issues
 
 Report issues at https://github.com/blabluble/play-sitemap-module/issues
