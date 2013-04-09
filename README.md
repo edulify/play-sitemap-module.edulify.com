@@ -2,6 +2,10 @@
 
 This is a [sitemap](http://www.sitemaps.org/) module generator for [Play Framework](http://www.playframework.org/) 2.1. It uses [SitemapGen4j](https://code.google.com/p/sitemapgen4j/) to generate the sitemap files.
 
+## About Sitemaps and SEO
+
+You can find more about sitemap and how it matters for Search Engine Optimization at [Tech Talk blog](http://techtalk.edulify.com/2013/04/09/seo-and-sitemap).
+
 ## How it works
 
 ### Configuring
