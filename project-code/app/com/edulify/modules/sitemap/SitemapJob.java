@@ -70,7 +70,7 @@ public class SitemapJob implements Runnable {
     Akka.system()
         .scheduler()
         .schedule(
-            FiniteDuration.create(0, TimeUnit.MILLISECONDS),
+            FiniteDuration.create(1, TimeUnit.MINUTES),
             FiniteDuration.create(1, TimeUnit.HOURS),
             new SitemapJob(),
             executionContext
