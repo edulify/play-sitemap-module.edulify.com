@@ -27,7 +27,7 @@ object ApplicationBuild extends Build {
     javaCore,
     javaJdbc,
     javaEbean,
-    "com.edulify" % "sitemapper_2.10" % "1.1"
+    "com.edulify" % "sitemapper_2.10" % "1.1.1"
   )
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
