@@ -49,7 +49,6 @@ sitemap.baseDir   = "/complete/path/to/directory/where/sitemap/files/will/be/sav
 sitemap.providers = sitemap.providers.ArticlesUrlProvider,sitemap.providers.AuthorsUrlProvider
 ```
 
-- dispatcher.name: name of the dispatcher used in the Akka system.
 - baseUrl: the base URL for links provided in your sitemap.
 - baseDir: as it says, the complete path to directory where you want your sitemap xml files be saved. If you don't provide this value, the sitemap files will be saved under your `public` directory.
 - providers: a comma separated list of *provider classes* that will generate URLs for your sitemap (see below).
@@ -74,6 +73,8 @@ akka {
   }
 }
 ```
+
+- dispatcher.name: name of the dispatcher used in the Akka system.
 
 Since the Sitemap Generator runs as a job, you must start `com.edulify.modules.sitemap.SitemapJob` in your Global class. We provide an helper method that uses the execution context configured above. Here is an example:
 
