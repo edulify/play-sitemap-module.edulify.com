@@ -44,10 +44,9 @@ Don't forget to add the resolver to your list of resolvers, or it won't work!
 Ok, now you need to configure the module in your `application.conf` (the configuration syntax is defined by [Typesafe Config](https://github.com/typesafehub/config)):
 
 ```
-sitemap.dispatcher.name = "Sitemapper"
-sitemap.baseUrl="http://example.com"
-sitemap.baseDir="/complete/path/to/directory/where/sitemap/files/will/be/saved"
-sitemap.providers=sitemap.providers.ArticlesUrlProvider,sitemap.providers.AuthorsUrlProvider
+sitemap.baseUrl   = "http://example.com"
+sitemap.baseDir   = "/complete/path/to/directory/where/sitemap/files/will/be/saved"
+sitemap.providers = sitemap.providers.ArticlesUrlProvider,sitemap.providers.AuthorsUrlProvider
 ```
 
 - dispatcher.name: name of the dispatcher used in the Akka system.
@@ -58,7 +57,7 @@ sitemap.providers=sitemap.providers.ArticlesUrlProvider,sitemap.providers.Author
 You must also configure an execution context that will execute the sitemap job:
 
 ```
-sitemap.dispatcher.name="sitemap-generator"
+sitemap.dispatcher.name = "sitemap-generator"
 akka {
 
   // see play's thread pools configuration for more details
