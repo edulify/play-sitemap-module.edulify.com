@@ -17,7 +17,7 @@ object ApplicationBuild extends Build {
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
     // Add your own project settings here
-    resolvers += Resolver.url("sitemapper repository", url("http://blabluble.github.com/modules/releases/"))(Resolver.ivyStylePatterns)
+    resolvers += Resolver.url("sitemapper repository", url("http://blabluble.github.io/modules/releases/"))(Resolver.ivyStylePatterns)
   )
 
 }
