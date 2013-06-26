@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="http://educationtous.edulify.com/wp-content/plugins/google-sitemap-generator/sitemap.xsl"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">	<url>
+		<loc>http://educationtous.edulify.com/</loc>
+		<lastmod>2013-04-01T19:08:46+00:00</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>1.0</priority>
+	</url>
+	<url>
+		<loc>http://educationtous.edulify.com/2013/03/20/john-hunter-on-the-world-peace-game</loc>
+		<lastmod>2013-04-01T19:08:46+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.2</priority>
+	</url>
+	<url>
+		<loc>http://educationtous.edulify.com/2013/03/11/selected-articles-from-our-lectures-1</loc>
+		<lastmod>2013-03-11T04:13:27+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.2</priority>
+	</url>
+	<url>
+		<loc>http://educationtous.edulify.com/2013/03/04/story-tellers</loc>
+		<lastmod>2013-03-04T18:41:35+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.2</priority>
+	</url>
+	<url>
+		<loc>http://educationtous.edulify.com/2013/02/14/learn-unlearn-relearn</loc>
+		<lastmod>2013-02-14T16:58:42+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.2</priority>
+	</url>
+	<url>
+		<loc>http://educationtous.edulify.com/about</loc>
+		<lastmod>2013-02-04T17:18:46+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.6</priority>
+	</url>
+</urlset>

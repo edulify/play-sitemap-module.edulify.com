@@ -26,7 +26,7 @@ public class SitemapControllerTest {
   @Test @SuppressWarnings("rawtypes")
   public void should_return_not_found_if_sitemap_file_does_not_exists() {
     FakeRequest request = Helpers.fakeRequest();
-    HandlerRef action = ref.SitemapController.sitemap("sitemap-fake.xml");
+    HandlerRef action = ref.SitemapController.sitemap("-fake");
     Result result = Helpers.callAction(action, request);
     Assertions.assertThat(Helpers.status(result)).isEqualTo(Helpers.NOT_FOUND);
   }
@@ -34,7 +34,7 @@ public class SitemapControllerTest {
   @Test @SuppressWarnings("rawtypes")
   public void should_return_sitemap_file_when_it_does_exists() {
     FakeRequest request = Helpers.fakeRequest();
-    HandlerRef action = ref.SitemapController.sitemap("sitemap-blog.xml");
+    HandlerRef action = ref.SitemapController.sitemap("-blog");
     Result result = Helpers.callAction(action, request);
     Assertions.assertThat(Helpers.status(result)).isEqualTo(Helpers.OK);
   }
