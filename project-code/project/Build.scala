@@ -5,7 +5,7 @@ import play.Project._
 object ApplicationBuild extends Build {
 
   val appName         = "sitemapper"
-  val appVersion      = "1.1.3"
+  val appVersion      = "1.1.4"
 
   val appDependencies = Seq(
     // Add your project dependencies here,
