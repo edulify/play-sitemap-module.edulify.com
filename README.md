@@ -12,7 +12,7 @@ You can find more about sitemap and how it matters for Search Engine Optimizatio
 
 The first step is include the sitemapper in your dependencies list, in `Build.scala` file:
 
-```
+```scala
 import sbt._
 import Keys._
 import play.Project._
@@ -190,16 +190,41 @@ Some search engines provide an interface to add the site's sitemap. If your site
 
 If you are using the `SitemapController` from the module, you can always use the `sitemap_index.xml` as the entry point for the search engines; when no sitemap_index is found, the `sitemap.xml` is automatically delivered.
 
-## Issues
+## JPA Gotchas
 
-Report issues at https://github.com/blabluble/play-sitemap-module/issues
+Since Play just bound EntityManager in threads handling actions, you will get errors if you just try to use EntityManager directly inside the `UrlProvider`. In fact, even if you try `@Transactional` annotation, which is tightly coupled with [play actions composition](http://www.playframework.com/documentation/2.2.x/JavaActionsComposition), you will get a error complaining that there is no EntityManager bound to the thread.
 
-## Licence
+Whe using JPA, the correct way to query database outside of action thread is "*wrapping the call in `JPA.withTransaction`*":
 
-This software is licensed under the Apache 2 license, quoted below.
+```java
+@Override
+public void addUrlsTo(WebSitemapGenerator generator) {
 
-Copyright 2013 Edulify.com (http://www.edulify.com).
+    String baseUrl = Play.application().configuration().getString("sitemap.baseUrl");
 
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use this project except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.
+    for (Article article : listArticles()) {
+        String articleUrl = routes.Application.showArticle(article.id).url();
 
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+        try {
+            WebSitemapUrl url = new WebSitemapUrl.Options(String.format(
+                    "%s%s", baseUrl, articleUrl))
+                    .changeFreq(ChangeFreq.DAILY)
+                    .priority(0.5).build();
+            generator.addUrl(url);
+        } catch (MalformedURLException ex) {
+            play.Logger.error("wat? " + articleUrl, ex);
+        }
+    }
+}
+
+private List<Article> listArticles() {
+    return JPA.withTransaction(new F.Function0<User>() {
+        @Override
+        public User apply() throws Throwable {
+            EntityManager em = JPA.em();
+            TypedQuery<Article> query = em.createNamedQuery(Article.FIND_ALL, Article.class);
+            return query.getResultList();
+        }
+    });
+}
+```
