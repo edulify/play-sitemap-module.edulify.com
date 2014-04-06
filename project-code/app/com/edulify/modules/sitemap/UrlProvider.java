@@ -10,7 +10,7 @@ public interface UrlProvider {
   /**
    * Receives a sitemap generator and add urls to it.
    *
-   * @param generator
+   * @param generator the web site generator
    */
   public void addUrlsTo(WebSitemapGenerator generator);
 }

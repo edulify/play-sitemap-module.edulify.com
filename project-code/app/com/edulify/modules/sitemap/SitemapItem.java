@@ -33,7 +33,7 @@ public @interface SitemapItem {
    *
    * The default priority of a page is 0.5.
    *
-   * @return
+   * @return the priority value
    */
   double priority() default 0.5;
 }
