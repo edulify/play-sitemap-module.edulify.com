@@ -218,9 +218,9 @@ public void addUrlsTo(WebSitemapGenerator generator) {
 }
 
 private List<Article> listArticles() {
-    return JPA.withTransaction(new F.Function0<User>() {
+    return JPA.withTransaction(new F.Function0<List<Article>>() {
         @Override
-        public User apply() throws Throwable {
+        public List<Article> apply() throws Throwable {
             EntityManager em = JPA.em();
             TypedQuery<Article> query = em.createNamedQuery(Article.FIND_ALL, Article.class);
             return query.getResultList();
