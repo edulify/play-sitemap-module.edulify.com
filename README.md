@@ -1,6 +1,6 @@
 # Sitemap Generator Module
 
-This is a [sitemap](http://www.sitemaps.org/) module generator for [Play Framework](http://www.playframework.org/) 2.2 (for Play 2.1 compatibility, use the module version 1.1.3). It uses [SitemapGen4j](https://code.google.com/p/sitemapgen4j/) to generate the sitemap files.
+This is a [sitemap](http://www.sitemaps.org/) module generator for [Play Framework](http://www.playframework.org/) 2.2.2 (for Play 2.1 compatibility, use the module version 1.1.3). It uses [SitemapGen4j](https://code.google.com/p/sitemapgen4j/) to generate the sitemap files.
 
 ## About Sitemaps and SEO
 
@@ -27,12 +27,12 @@ object ApplicationBuild extends Build {
     javaCore,
     javaJdbc,
     javaEbean,
-    "com.edulify" % "sitemapper_2.10" % "1.1.4"
+    "com.edulify" % "sitemapper_2.10" % "1.1.5"
   )
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
     // Add your own project settings here
-    resolvers += Resolver.url("sitemapper repository", url("http://blabluble.github.com/modules/releases/"))(Resolver.ivyStylePatterns)
+    resolvers += Resolver.url("Edulify Repository", url("http://edulify.github.io/modules/releases/"))(Resolver.ivyStylePatterns)
   )
 
 }
