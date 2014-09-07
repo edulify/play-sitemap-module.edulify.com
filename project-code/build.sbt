@@ -39,7 +39,7 @@ publishTo := {
 
 startYear := Some(2013)
 
-description := "Play module to automatically create sitemaps"
+description := "Playframework module to automatically create sitemaps"
 
 licenses := Seq("The Apache Software License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt"))
 
