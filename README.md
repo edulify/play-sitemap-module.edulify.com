@@ -1,16 +1,38 @@
 # Sitemap Generator Module
 
-This is a [sitemap](http://www.sitemaps.org/) module generator for [Play Framework](http://www.playframework.org/) 2.2.2 (for Play 2.1 compatibility, use the module version 1.1.3). It uses [SitemapGen4j](https://code.google.com/p/sitemapgen4j/) to generate the sitemap files.
+This is a [sitemap](http://www.sitemaps.org/) module generator for [Play Framework](http://www.playframework.org/) 2.3.x. It uses [SitemapGen4j](https://code.google.com/p/sitemapgen4j/) to generate the sitemap files.
+
+## Compatibility matrix
+
+| Playframework version | Module version | 
+|:----------------------|:---------------|
+| 2.3.x                 | 1.1.6          |
+| 2.2.x                 | 1.1.5          |
+| 2.1.x                 | 1.1.3          |
 
 ## About Sitemaps and SEO
 
 You can find more about sitemap and how it matters for Search Engine Optimization at [Tech Talk blog](http://techtalk.edulify.com/2013/04/09/seo-and-sitemap).
 
-## How it works
+## Configuring
 
-### Configuring
+The first step is include the sitemapper in your dependencies list, in `build.sbt` or `Build.scala` file:
 
-The first step is include the sitemapper in your dependencies list, in `Build.scala` file:
+#### `build.sbt`
+
+```scala
+resolvers ++= Seq(
+  Resolver.url("Edulify Repository", url("http://edulify.github.io/modules/releases/"))(Resolver.ivyStylePatterns)
+)
+
+...
+
+libraryDependencies ++= Seq(
+  "com.edulify" %% "sitemapper" % "1.1.6"
+)
+```
+
+#### `Build.scala`
 
 ```scala
 import sbt._
@@ -27,7 +49,7 @@ object ApplicationBuild extends Build {
     javaCore,
     javaJdbc,
     javaEbean,
-    "com.edulify" % "sitemapper_2.10" % "1.1.5"
+    "com.edulify" %% "sitemapper" % "1.1.6"
   )
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
@@ -91,7 +113,7 @@ public class Global extends GlobalSettings {
 }
 ```
 
-### Using
+## Using
 
 With everything configured, now its time to add some URLs to your sitemap(s). The simplest way is add the `@SitemapItem` annotation to your controllers methods which doesn't expect arguments:
 
@@ -184,7 +206,7 @@ Or you can write your own file deliver. Just remember that the `sitemap_index.xm
 
 for a `baseUrl = http://www.example.com`.
 
-### Entry point
+## Entry point
 
 Some search engines provide an interface to add the site's sitemap. If your site has no providers or you don't expect that the number of links reaches 50.000 (maximum number of links in each sitemap file), you can point such engines to your `sitemap.xml`. Otherwise, you must point to `sitemap_index.xml`, that will have the links the generated sitemaps.
 
