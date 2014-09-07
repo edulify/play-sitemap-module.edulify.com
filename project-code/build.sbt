@@ -1,8 +1,12 @@
-import play.Project._
-
 name := "sitemapper"
 
 version := "1.1.5"
+
+scalaVersion := "2.11.2"
+
+crossScalaVersions := Seq("2.10.4", "2.11.2")
+
+lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
 libraryDependencies ++= Seq(
   javaCore,
@@ -64,5 +68,3 @@ pomExtra := (
   )
 
 scalacOptions := Seq("-feature", "-deprecation")
-
-playScalaSettings
