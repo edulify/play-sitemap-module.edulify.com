@@ -16,7 +16,7 @@ public class SitemapController extends Controller {
     File sitemapFile = new File(baseDir, sitemap);
     play.Logger.debug("Delivering sitemap file " + sitemapFile.getAbsolutePath());
     if(canDelivery(sitemapFile)) {
-      return ok(sitemapFile);
+      return ok(sitemapFile, true);
     }
     if ("_index".equals(sitemapSuffix)) {
       return sitemap("");
