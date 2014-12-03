@@ -78,7 +78,7 @@ sitemap.providers = sitemap.providers.ArticlesUrlProvider,sitemap.providers.Auth
 You must also configure an execution context that will execute the sitemap job:
 
 ```
-sitemap.dispatcher.name = "sitemap-generator"
+sitemap.dispatcher.name = "akka.actor.sitemap-generator"
 akka {
 
   // see play's thread pools configuration for more details
