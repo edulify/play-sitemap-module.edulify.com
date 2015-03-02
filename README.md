@@ -4,7 +4,7 @@ This is a [sitemap](http://www.sitemaps.org/) module generator for [Play Framewo
 
 ## Compatibility matrix
 
-| Playframework version | Module version | 
+| Playframework version | Module version |
 |:----------------------|:---------------|
 | 2.3.x                 | 1.1.7          |
 | 2.3.x                 | 1.1.6          |
@@ -184,11 +184,12 @@ Remember that you'll need to add the absolute path of the added URLs.
 
 In order to deliver your sitemaps files, you can use the `SitemapController` provided by this module. For this, you can simply add the following route to your `routes` files:
 
-<pre>
+```
 GET     /sitemap$suffix<[^/]*>.xml   com.edulify.modules.sitemap.SitemapController.sitemap(suffix: String)
-</pre>
+```
 
 Or you can write your own file deliver. Just remember that the `sitemap_index.xml`, when generated, links to sitemap#.xml on the defined *baseUrl*, i.e., the `sitemap_index.xml` will like look this:
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 
