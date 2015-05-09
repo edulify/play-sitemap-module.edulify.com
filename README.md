@@ -6,6 +6,7 @@ This is a [sitemap](http://www.sitemaps.org/) module generator for [Play Framewo
 
 | Playframework version | Module version |
 |:----------------------|:---------------|
+| 2.3.x                 | 1.1.8          |
 | 2.3.x                 | 1.1.7          |
 | 2.3.x                 | 1.1.6          |
 | 2.2.x                 | 1.1.5          |
@@ -29,7 +30,7 @@ resolvers ++= Seq(
 ...
 
 libraryDependencies ++= Seq(
-  "com.edulify" %% "sitemapper" % "1.1.7"
+  "com.edulify" %% "sitemapper" % "1.1.8"
 )
 ```
 
@@ -50,7 +51,7 @@ object ApplicationBuild extends Build {
     javaCore,
     javaJdbc,
     javaEbean,
-    "com.edulify" %% "sitemapper" % "1.1.7"
+    "com.edulify" %% "sitemapper" % "1.1.8"
   )
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
