@@ -11,7 +11,7 @@ libraryDependencies ++= Seq(
   javaCore,
   javaJdbc,
   javaEbean,
-  "com.edulify" %% "sitemapper" % "1.1.6"
+  "com.edulify" %% "sitemapper" % "1.1.8"
 )
 
 resolvers ++= Seq(
