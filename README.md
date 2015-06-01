@@ -2,6 +2,8 @@
 
 This is a [sitemap](http://www.sitemaps.org/) module generator for [Play Framework](http://www.playframework.org/) 2.3.x. It uses [SitemapGen4j](https://code.google.com/p/sitemapgen4j/) to generate the sitemap files.
 
+[![Build Status](https://travis-ci.org/edulify/play-sitemap-module.edulify.com.svg)](https://travis-ci.org/edulify/play-sitemap-module.edulify.com)
+
 ## Compatibility matrix
 
 | Playframework version | Module version |
