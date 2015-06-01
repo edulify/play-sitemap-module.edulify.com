@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import play.Configuration;
 import play.Play;
 import play.libs.Akka;
 import scala.concurrent.duration.FiniteDuration;
@@ -46,10 +47,13 @@ public class SitemapJob implements Runnable {
   }
 
   private List<UrlProvider> providers() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-    List<UrlProvider> providers = new ArrayList<UrlProvider>();
-    providers.add(new AnnotationUrlProvider());
+    Configuration configuration = Play.application().configuration();
 
-    String allProvidersClasses = Play.application().configuration().getString("sitemap.providers");
+    List<UrlProvider> providers = new ArrayList<>();
+    providers.add(new AnnotationUrlProvider(configuration));
+
+    String allProvidersClasses = configuration.getString("sitemap.providers");
+
     if (allProvidersClasses != null) {
       String[] providerClasses = allProvidersClasses.split(",");
       ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
@@ -61,6 +65,7 @@ public class SitemapJob implements Runnable {
         }
       }
     }
+
     return providers;
   }
 

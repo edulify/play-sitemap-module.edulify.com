@@ -1,8 +1,10 @@
-name := "sitemapper"
+name := "sitemap-module"
 
 version := "1.1.8"
 
 scalaVersion := "2.11.6"
+
+scalacOptions := Seq("-feature", "-deprecation")
 
 crossScalaVersions := Seq("2.10.5", "2.11.6")
 
@@ -11,10 +13,6 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala)
 libraryDependencies ++= Seq(
   javaCore,
   "com.github.dfabulich" % "sitemapgen4j" % "1.0.2"
-)
-
-resolvers ++= Seq(
-  Resolver.typesafeRepo("releases")
 )
 
 organization := "com.edulify"
@@ -66,5 +64,3 @@ pomExtra := (
       </developer>
     </developers>
   )
-
-scalacOptions := Seq("-feature", "-deprecation")

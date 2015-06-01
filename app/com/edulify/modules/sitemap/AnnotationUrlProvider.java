@@ -1,7 +1,5 @@
 package com.edulify.modules.sitemap;
 
-import static org.reflections.util.ClasspathHelper.forPackage;
-
 import com.redfin.sitemapgenerator.WebSitemapUrl;
 import com.redfin.sitemapgenerator.WebSitemapGenerator;
 
@@ -14,18 +12,26 @@ import java.util.Set;
 
 import org.reflections.Reflections;
 import org.reflections.scanners.MethodAnnotationsScanner;
-import play.Play;
+import play.Configuration;
 import play.mvc.Call;
+
+import javax.inject.Inject;
 
 public class AnnotationUrlProvider implements UrlProvider {
 
+  private Configuration configuration;
+
+  @Inject
+  public AnnotationUrlProvider(Configuration configuration) {
+    this.configuration = configuration;
+  }
+
   @Override
   public void addUrlsTo(WebSitemapGenerator generator) {
-    String baseUrl = Play.application().configuration().getString("sitemap.baseUrl");
+    String baseUrl = configuration.getString("sitemap.baseUrl");
 
     ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-    Set<java.net.URL> hints = forPackage("controllers", classLoader);
-    Reflections reflections = new Reflections(hints, new MethodAnnotationsScanner());
+    Reflections reflections = new Reflections("controllers", new MethodAnnotationsScanner());
 
     Set<Method> actions = reflections.getMethodsAnnotatedWith(SitemapItem.class);
     for(Method method : actions) {
@@ -51,7 +57,7 @@ public class AnnotationUrlProvider implements UrlProvider {
   }
 
   private String actionUrl(ClassLoader classLoader, Method method) {
-    String itemUrl = null;
+    String itemUrl = "";
     try {
       String className  = method.getDeclaringClass().getSimpleName();
       String methodName = method.getName();

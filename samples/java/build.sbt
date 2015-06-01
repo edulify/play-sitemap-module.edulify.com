@@ -2,16 +2,15 @@ name := """sitemapper-sample"""
 
 version := "1.0-SNAPSHOT"
 
-lazy val root = (project in file(".")).enablePlugins(PlayJava)
+lazy val myProject = (project in file("."))
+  .enablePlugins(PlayJava, PlayEbean)
 
 scalaVersion := "2.11.6"
 
 libraryDependencies ++= Seq(
-  // Add your project dependencies here,
   javaCore,
   javaJdbc,
-  javaEbean,
-  "com.edulify" %% "sitemapper" % "1.1.8"
+  "com.edulify" %% "sitemap-module" % "2.0.0-SNAPSHOT"
 )
 
 resolvers ++= Seq(
