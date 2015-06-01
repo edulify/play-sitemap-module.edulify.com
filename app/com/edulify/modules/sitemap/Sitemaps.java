@@ -4,17 +4,23 @@ import static java.lang.String.format;
 
 import java.io.File;
 
+import play.Configuration;
 import play.Play;
 import play.mvc.Result;
 import play.mvc.Controller;
 
-/**
- * @deprecated Use com.edulify.modules.sitemap.Sitemaps instead
- */
-@Deprecated
-public class SitemapController extends Controller {
+import javax.inject.Inject;
 
-  public static Result sitemap(String sitemapSuffix) {
+public class Sitemaps extends Controller {
+
+  private Configuration configuration;
+
+  @Inject
+  public Sitemaps(Configuration configuration) {
+    this.configuration = configuration;
+  }
+
+  public Result sitemap(String sitemapSuffix) {
     String sitemap = String.format("sitemap%s.xml", sitemapSuffix);
     File baseDir = baseDir();
     File sitemapFile = new File(baseDir, sitemap);
@@ -29,16 +35,15 @@ public class SitemapController extends Controller {
     return notFound();
   }
 
-  private static File baseDir() {
-    String baseDir = Play.application().configuration().getString("sitemap.baseDir");
+  private File baseDir() {
+    String baseDir = configuration.getString("sitemap.baseDir");
     return baseDir != null ? new File(baseDir) : Play.application().getFile("public");
   }
 
-  private static boolean canDelivery(File file) {
+  private boolean canDelivery(File file) {
     File baseDir = baseDir();
     return  file.exists() &&
             file.isFile() &&
             file.getParentFile().equals(baseDir);
   }
-
 }
