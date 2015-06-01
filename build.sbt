@@ -1,6 +1,6 @@
 name := "sitemap-module"
 
-version := "1.1.8"
+version := "2.0.0-SNAPSHOT"
 
 scalaVersion := "2.11.6"
 
