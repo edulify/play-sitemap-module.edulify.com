@@ -27,7 +27,7 @@ public @interface SitemapItem {
   /**
    * The priority of this URL relative to other URLs on your site.
    * Valid values range from 0.0 to 1.0. This value does not affect
-   * how your pages are compared to pages on other sites—it only lets
+   * how your pages are compared to pages on other sites — it only lets
    * the search engines know which pages you deem most important for
    * the crawlers.
    *

@@ -12,5 +12,5 @@ public interface UrlProvider {
    *
    * @param generator the web site generator
    */
-  public void addUrlsTo(WebSitemapGenerator generator);
+  void addUrlsTo(WebSitemapGenerator generator);
 }
