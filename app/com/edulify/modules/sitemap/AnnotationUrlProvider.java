@@ -15,6 +15,8 @@ import org.reflections.scanners.MethodAnnotationsScanner;
 import play.Configuration;
 import play.mvc.Call;
 
+import scala.Function0;
+
 import javax.inject.Inject;
 
 public class AnnotationUrlProvider implements UrlProvider {
@@ -63,7 +65,9 @@ public class AnnotationUrlProvider implements UrlProvider {
       String methodName = method.getName();
       Class<?> clazz    = classLoader.loadClass(String.format("controllers.Reverse%s", className));
       Method reverseMethod = clazz.getMethod(methodName);
-      Call call = (Call) reverseMethod.invoke(clazz.newInstance());
+      Class<?> routesPrefixClazz = classLoader.loadClass("router.RoutesPrefix");
+      Method byNamePrefixMethod = routesPrefixClazz.getMethod("byNamePrefix");
+      Call call = (Call) reverseMethod.invoke(clazz.getConstructor(Function0.class).newInstance(byNamePrefixMethod.invoke(routesPrefixClazz)));
       itemUrl = call.url();
     } catch (ClassNotFoundException ex) {
       play.Logger.error("Package controllers does not have such class", ex);
