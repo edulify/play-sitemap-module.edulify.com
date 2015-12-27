@@ -1,84 +1,53 @@
 package com.edulify.modules.sitemap;
 
-import java.io.File;
-import java.net.MalformedURLException;
-import java.lang.ClassLoader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import play.Configuration;
+import akka.actor.ActorSystem;
+import play.Application;
 import play.Play;
 import play.libs.Akka;
 import scala.concurrent.duration.FiniteDuration;
 
 import akka.dispatch.MessageDispatcher;
 
-import com.redfin.sitemapgenerator.WebSitemapGenerator;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
-public class SitemapJob implements Runnable {
+@Singleton
+public class SitemapJob {
 
-  @Override
-  public void run() {
-    String baseUrl = Play.application().configuration().getString("sitemap.baseUrl");
-    String baseDir = Play.application().configuration().getString("sitemap.baseDir");
-    if (baseDir == null) {
-      baseDir = Play.application().getFile("public").getAbsolutePath();
-    }
-    try {
-      WebSitemapGenerator generator = new WebSitemapGenerator(baseUrl, new File(baseDir));
-      List<UrlProvider> providers = providers();
-      for (UrlProvider urlProvider : providers) {
-        urlProvider.addUrlsTo(generator);
-      }
-      generator.write();
-      try {
-        generator.writeSitemapsWithIndex();
-      } catch (RuntimeException ex) {
-        play.Logger.warn("Could not create sitemap index", ex);
-      }
-    } catch(MalformedURLException ex) {
-      play.Logger.error("Oops! Can't create a sitemap generator for the given baseUrl " + baseUrl, ex);
-    } catch (ClassNotFoundException ex) {
-      play.Logger.error("Cannot load configured url provider class", ex);
-    } catch (InstantiationException | IllegalAccessException ex) {
-      play.Logger.error("Cannot instantiate url provider class. Does it have a public default constructor?", ex);
-    }
-  }
+    private SitemapConfig config;
+    private SitemapTask task;
+    private ActorSystem actorSystem;
 
-  private List<UrlProvider> providers() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-    Configuration configuration = Play.application().configuration();
-
-    List<UrlProvider> providers = new ArrayList<>();
-    providers.add(new AnnotationUrlProvider(configuration));
-
-    String allProvidersClasses = configuration.getString("sitemap.providers");
-
-    if (allProvidersClasses != null) {
-      String[] providerClasses = allProvidersClasses.split(",");
-      ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-      for (String provider : providerClasses) {
-        if (!"".equals(provider)) {
-          Class<?> clazz = classLoader.loadClass(provider);
-          Object providerInstance = clazz.newInstance();
-          providers.add((UrlProvider)providerInstance);
-        }
-      }
+    @Inject
+    public SitemapJob(ActorSystem actorSystem, SitemapConfig config, SitemapTask task) {
+        this.config = config;
+        this.actorSystem = actorSystem;
+        this.task = task;
+        this.init();
     }
 
-    return providers;
-  }
+    private void init() {
+        MessageDispatcher executionContext = actorSystem.dispatchers().lookup(config.getDispatcherName());
 
-  public static void startSitemapGenerator() {
-    String dispatcherName = Play.application().configuration().getString("sitemap.dispatcher.name");
-    MessageDispatcher executionContext = Akka.system().dispatchers().lookup(dispatcherName);
-    Akka.system()
-        .scheduler()
-        .schedule(
-            FiniteDuration.create(1, TimeUnit.MINUTES),
-            FiniteDuration.create(1, TimeUnit.HOURS),
-            new SitemapJob(),
-            executionContext
-        );
-  }
+        this.actorSystem
+                .scheduler()
+                .schedule(
+                        (FiniteDuration) FiniteDuration.create(config.getInitialDelay()),
+                        (FiniteDuration) FiniteDuration.create(config.getExecutionInterval()),
+                        task,
+                        executionContext
+                );
+    }
+
+    /**
+     * @deprecated Use com.edulify.modules.sitemap.SitemapModule instead.
+     */
+    @Deprecated
+    public static void startSitemapGenerator() {
+        Application application = Play.application();
+        ActorSystem actorSystem = Akka.system();
+        SitemapConfig sitemapConfig = application.injector().instanceOf(SitemapConfig.class);
+        SitemapTask task = application.injector().instanceOf(SitemapTask.class);
+        new SitemapJob(actorSystem, sitemapConfig, task).init();
+    }
 }
