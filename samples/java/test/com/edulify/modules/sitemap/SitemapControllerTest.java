@@ -5,12 +5,10 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.edulify.modules.sitemap.routes.ref;
-
-import play.api.mvc.HandlerRef;
+import play.mvc.Call;
+import play.mvc.Http;
 import play.mvc.Result;
 import play.test.FakeApplication;
-import play.test.FakeRequest;
 import play.test.Helpers;
 
 public class SitemapControllerTest {
@@ -25,33 +23,49 @@ public class SitemapControllerTest {
 
   @Test @SuppressWarnings("rawtypes")
   public void should_return_not_found_if_sitemap_file_does_not_exists() {
-    FakeRequest request = Helpers.fakeRequest();
-    HandlerRef action = ref.SitemapController.sitemap("-fake");
-    Result result = Helpers.callAction(action, request);
+    Call action = routes.Sitemaps.sitemap("-fake");
+    Http.RequestBuilder request = Helpers.fakeRequest(action);
+    Result result = Helpers.route(request);
     Assertions.assertThat(Helpers.status(result)).isEqualTo(Helpers.NOT_FOUND);
   }
 
   @Test @SuppressWarnings("rawtypes")
   public void should_return_sitemap_file_when_it_does_exists() {
-    FakeRequest request = Helpers.fakeRequest();
-    HandlerRef action = ref.SitemapController.sitemap("-blog");
-    Result result = Helpers.callAction(action, request);
+    Call action = routes.Sitemaps.sitemap("-blog");
+    Http.RequestBuilder request = Helpers.fakeRequest(action);
+    Result result = Helpers.route(request);
+    Assertions.assertThat(Helpers.status(result)).isEqualTo(Helpers.OK);
+  }
+
+  @Test @SuppressWarnings("rawtypes")
+  public void should_return_sitemap_file_root() {
+    Call action = routes.Sitemaps.sitemap("");
+    Http.RequestBuilder request = Helpers.fakeRequest(action);
+    Result result = Helpers.route(request);
+    Assertions.assertThat(Helpers.status(result)).isEqualTo(Helpers.OK);
+  }
+
+  @Test @SuppressWarnings("rawtypes")
+  public void should_return_sitemap_file_index() {
+    Call action = routes.Sitemaps.sitemap("_index");
+    Http.RequestBuilder request = Helpers.fakeRequest(action);
+    Result result = Helpers.route(request);
     Assertions.assertThat(Helpers.status(result)).isEqualTo(Helpers.OK);
   }
 
   @Test @SuppressWarnings("rawtypes")
   public void should_handle_malicious_directory_transversing_attack() {
-    FakeRequest request = Helpers.fakeRequest();
-    HandlerRef action = ref.SitemapController.sitemap("../conf/application.conf");
-    Result result = Helpers.callAction(action, request);
+    Call action = routes.Sitemaps.sitemap("../conf/application.conf");
+    Http.RequestBuilder request = Helpers.fakeRequest(action);
+    Result result = Helpers.route(request);
     Assertions.assertThat(Helpers.status(result)).isEqualTo(Helpers.NOT_FOUND);
   }
 
   @Test @SuppressWarnings("rawtypes")
   public void should_return_not_found_when_given_path_is_a_directory() {
-    FakeRequest request = Helpers.fakeRequest();
-    HandlerRef action = ref.SitemapController.sitemap("javascripts");
-    Result result = Helpers.callAction(action, request);
+    Call action = routes.Sitemaps.sitemap("javascripts");
+    Http.RequestBuilder request = Helpers.fakeRequest(action);
+    Result result = Helpers.route(request);
     Assertions.assertThat(Helpers.status(result)).isEqualTo(Helpers.NOT_FOUND);
   }
 

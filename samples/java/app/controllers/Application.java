@@ -15,15 +15,15 @@ import com.redfin.sitemapgenerator.ChangeFreq;
 public class Application extends Controller {
 
   @SitemapItem(changefreq = ChangeFreq.MONTHLY, priority = 0.8)
-  public static Result index() {
+  public Result index() {
     return ok(views.html.index.render(Article.find.all()));
   }
 
-  public static Result showArticle(Long id) {
+  public Result showArticle(Long id) {
     return ok(views.html.article.render(Article.find.byId(id)));
   }
 
-  public static Result addArticle() {
+  public Result addArticle() {
     Form<Article> form = form(Article.class).bindFromRequest();
     Article article = form.get();
     article.save();

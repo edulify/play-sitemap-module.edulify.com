@@ -27,7 +27,7 @@ public class AnnotationUrlProviderTest {
   @Test
   public void should_generate_sitemap_file() throws Exception {
     WebSitemapGenerator generator  = new WebSitemapGenerator("http://localhost:9000", baseDir);
-    AnnotationUrlProvider provider = new AnnotationUrlProvider();
+    AnnotationUrlProvider provider = application.injector().instanceOf(AnnotationUrlProvider.class);
     provider.addUrlsTo(generator);
     generator.write();
     Assertions.assertThat(new File(baseDir, "sitemap.xml")).exists();
@@ -36,7 +36,7 @@ public class AnnotationUrlProviderTest {
   @Test
   public void should_generate_sitemap_with_url_for_annotated_action() throws Exception {
     WebSitemapGenerator generator  = new WebSitemapGenerator("http://localhost:9000", baseDir);
-    AnnotationUrlProvider provider = new AnnotationUrlProvider();
+    AnnotationUrlProvider provider = application.injector().instanceOf(AnnotationUrlProvider.class);
     provider.addUrlsTo(generator);
     generator.write();
 
