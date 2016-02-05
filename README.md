@@ -124,6 +124,8 @@ sitemap {
   }
   baseUrl   = "http://localhost:9000"
   providers = "sitemap.providers.ArticlesUrlProvider"
+  initialDelay = "1 minute"
+  executionInterval = "2 hours"
 }
 
 akka {
