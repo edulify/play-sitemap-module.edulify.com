@@ -79,12 +79,16 @@ sitemap {
   baseDir   = "/path/where/sitemaps/file/will/be/saved"
   baseUrl   = "http://localhost:9000"
   providers = "sitemap.providers.ArticlesUrlProvider"
+  initialDelay = "1 minute"
+  executionInterval = "2 hours"
 }
 ```
 
 - `baseUrl`: the base URL for links provided in your sitemap.
 - `baseDir`: as it says, the complete path to directory where you want your sitemap xml files be saved. If you don't provide this value, the sitemap files will be saved under your `public` directory.
 - `providers`: a comma separated list of *provider classes* that will generate URLs for your sitemap (see below).
+- `initialDelay`: timespan between start of the application and first generation of the sitemap (defaults to "1 minute")
+- `executionInterval`: timespan between each successive generation of the sitemap (defaults to "1 hour")
 
 You must also configure an execution context that will execute the sitemap job:
 
