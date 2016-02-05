@@ -20,14 +20,14 @@
 
     <section class="main-content">
       <h1>
-<a id="sitemap-generator-module" class="anchor" href="#sitemap-generator-module" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sitemap Generator Module</h1>
+<a id="sitemap-generator-module" class="anchor" href="#sitemap-generator-module" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Sitemap Generator Module</h1>
 
 <p>This is a module that generates <a href="http://www.sitemaps.org/">sitemaps</a> for <a href="http://www.playframework.org/">Play Framework</a> 2.3.x and 2.4.x. It is build using <a href="https://github.com/dfabulich/sitemapgen4j/">SitemapGen4j</a> to generate the sitemap files.</p>
 
 <p><a href="https://travis-ci.org/edulify/play-sitemap-module.edulify.com"><img src="https://travis-ci.org/edulify/play-sitemap-module.edulify.com.svg" alt="Build Status"></a></p>
 
 <h2>
-<a id="compatibility-matrix" class="anchor" href="#compatibility-matrix" aria-hidden="true"><span class="octicon octicon-link"></span></a>Compatibility matrix</h2>
+<a id="compatibility-matrix" class="anchor" href="#compatibility-matrix" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compatibility matrix</h2>
 
 <table>
 <thead>
@@ -69,17 +69,17 @@
 </table>
 
 <h2>
-<a id="about-sitemaps-and-seo" class="anchor" href="#about-sitemaps-and-seo" aria-hidden="true"><span class="octicon octicon-link"></span></a>About Sitemaps and SEO</h2>
+<a id="about-sitemaps-and-seo" class="anchor" href="#about-sitemaps-and-seo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>About Sitemaps and SEO</h2>
 
 <p>You can find more about sitemap and why it matters for Search Engine Optimization at <a href="http://techtalk.edulify.com/2013/04/09/seo-and-sitemap">Tech Talk blog</a>.</p>
 
 <h2>
-<a id="configuring" class="anchor" href="#configuring" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configuring</h2>
+<a id="configuring" class="anchor" href="#configuring" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Configuring</h2>
 
 <p>The first step is include the sitemap module in your dependencies list, in <code>build.sbt</code> or <code>Build.scala</code> file:</p>
 
 <h4>
-<a id="buildsbt" class="anchor" href="#buildsbt" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>build.sbt</code>
+<a id="buildsbt" class="anchor" href="#buildsbt" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><code>build.sbt</code>
 </h4>
 
 <div class="highlight highlight-source-scala"><pre>resolvers <span class="pl-k">++</span><span class="pl-k">=</span> <span class="pl-en">Seq</span>(
@@ -93,7 +93,7 @@ libraryDependencies <span class="pl-k">++</span><span class="pl-k">=</span> <spa
 )</pre></div>
 
 <h4>
-<a id="buildscala" class="anchor" href="#buildscala" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Build.scala</code>
+<a id="buildscala" class="anchor" href="#buildscala" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><code>Build.scala</code>
 </h4>
 
 <div class="highlight highlight-source-scala"><pre><span class="pl-k">import</span> <span class="pl-v">sbt.</span><span class="pl-v">_</span>
@@ -117,8 +117,7 @@ libraryDependencies <span class="pl-k">++</span><span class="pl-k">=</span> <spa
     resolvers <span class="pl-k">+</span><span class="pl-k">=</span> <span class="pl-en">Resolver</span>.url(<span class="pl-s"><span class="pl-pds">"</span>Edulify Repository<span class="pl-pds">"</span></span>, url(<span class="pl-s"><span class="pl-pds">"</span>https://edulify.github.io/modules/releases/<span class="pl-pds">"</span></span>))(<span class="pl-en">Resolver</span>.ivyStylePatterns)
   )
 
-}
-</pre></div>
+}</pre></div>
 
 <p>Don't forget to add the resolver to your list of resolvers.</p>
 
@@ -132,6 +131,8 @@ sitemap {
   baseDir   = "/path/where/sitemaps/file/will/be/saved"
   baseUrl   = "http://localhost:9000"
   providers = "sitemap.providers.ArticlesUrlProvider"
+  initialDelay = "1 minute"
+  executionInterval = "2 hours"
 }
 </code></pre>
 
@@ -142,6 +143,10 @@ sitemap {
 <code>baseDir</code>: as it says, the complete path to directory where you want your sitemap xml files be saved. If you don't provide this value, the sitemap files will be saved under your <code>public</code> directory.</li>
 <li>
 <code>providers</code>: a comma separated list of <em>provider classes</em> that will generate URLs for your sitemap (see below).</li>
+<li>
+<code>initialDelay</code>: timespan between start of the application and first generation of the sitemap (defaults to "1 minute")</li>
+<li>
+<code>executionInterval</code>: timespan between each successive generation of the sitemap (defaults to "1 hour")</li>
 </ul>
 
 <p>You must also configure an execution context that will execute the sitemap job:</p>
@@ -195,7 +200,7 @@ akka {
 </code></pre>
 
 <h2>
-<a id="using" class="anchor" href="#using" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using</h2>
+<a id="using" class="anchor" href="#using" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Using</h2>
 
 <p>With everything configured, now its time to add some URLs to your sitemap(s). The simplest way is add the <code>@SitemapItem</code> annotation to your controllers methods which doesn't expect arguments:</p>
 
@@ -292,14 +297,14 @@ akka {
 <p>for a <code>baseUrl = http://www.example.com</code>.</p>
 
 <h2>
-<a id="entry-point" class="anchor" href="#entry-point" aria-hidden="true"><span class="octicon octicon-link"></span></a>Entry point</h2>
+<a id="entry-point" class="anchor" href="#entry-point" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Entry point</h2>
 
 <p>Some search engines provide an interface to add the site's sitemap. If your site has no providers or you don't expect that the number of links reaches 50.000 (maximum number of links in each sitemap file), you can point such engines to your <code>sitemap.xml</code>. Otherwise, you must point to <code>sitemap_index.xml</code>, that will have the links the generated sitemaps.</p>
 
 <p>If you are using the <code>Sitemaps</code> controller from the module, you can always use the <code>sitemap_index.xml</code> as the entry point for the search engines; when no <code>sitemap_index.xml</code> is found, the <code>sitemap.xml</code> is automatically delivered.</p>
 
 <h2>
-<a id="jpa-gotchas" class="anchor" href="#jpa-gotchas" aria-hidden="true"><span class="octicon octicon-link"></span></a>JPA Gotchas</h2>
+<a id="jpa-gotchas" class="anchor" href="#jpa-gotchas" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>JPA Gotchas</h2>
 
 <p>Since Play only binds EntityManager when handling requests, you will get errors if you just try to use EntityManager directly inside the <code>UrlProvider</code>. In fact, even if you try <code>@Transactional</code> annotation, which is tightly coupled with <a href="http://www.playframework.com/documentation/2.4.x/JavaActionsComposition">play actions composition</a>, you will get a error complaining that there is no EntityManager bounded to the thread.</p>
 
@@ -337,7 +342,7 @@ akka {
 }</pre></div>
 
 <h2>
-<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
 
 <p>Copyright 2014 Edulify.com</p>
 
