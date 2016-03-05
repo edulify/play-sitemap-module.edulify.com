@@ -12,8 +12,8 @@ libraryDependencies ++= Seq(
   javaCore,
   javaJdbc,
   "org.easytesting" % "fest-assert"    % "1.4",
-  "junit" % "junit"    % "4.11",
-  "com.edulify"    %% "sitemap-module" % "2.0.0"
+  "junit" % "junit"    % "4.12",
+  "com.edulify"    %% "sitemap-module" % "2.1.0"
 )
 
 resolvers ++= Seq(
