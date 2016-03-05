@@ -38,6 +38,10 @@
 </thead>
 <tbody>
 <tr>
+<td align="left">2.5.0</td>
+<td align="left">2.1.0</td>
+</tr>
+<tr>
 <td align="left">2.4.6</td>
 <td align="left">2.0.0</td>
 </tr>
@@ -89,7 +93,7 @@
 ...
 
 libraryDependencies <span class="pl-k">++</span><span class="pl-k">=</span> <span class="pl-en">Seq</span>(
-  <span class="pl-s"><span class="pl-pds">"</span>com.edulify<span class="pl-pds">"</span></span> <span class="pl-k">%%</span> <span class="pl-s"><span class="pl-pds">"</span>sitemap-module<span class="pl-pds">"</span></span> <span class="pl-k">%</span> <span class="pl-s"><span class="pl-pds">"</span>2.0.0<span class="pl-pds">"</span></span>
+  <span class="pl-s"><span class="pl-pds">"</span>com.edulify<span class="pl-pds">"</span></span> <span class="pl-k">%%</span> <span class="pl-s"><span class="pl-pds">"</span>sitemap-module<span class="pl-pds">"</span></span> <span class="pl-k">%</span> <span class="pl-s"><span class="pl-pds">"</span>2.1.0<span class="pl-pds">"</span></span>
 )</pre></div>
 
 <h4>
@@ -109,7 +113,7 @@ libraryDependencies <span class="pl-k">++</span><span class="pl-k">=</span> <spa
     <span class="pl-c">// Add your project dependencies here,</span>
     javaCore,
     javaJdbc,
-    <span class="pl-s"><span class="pl-pds">"</span>com.edulify<span class="pl-pds">"</span></span> <span class="pl-k">%%</span> <span class="pl-s"><span class="pl-pds">"</span>sitemap-module<span class="pl-pds">"</span></span> <span class="pl-k">%</span> <span class="pl-s"><span class="pl-pds">"</span>2.0.0<span class="pl-pds">"</span></span>
+    <span class="pl-s"><span class="pl-pds">"</span>com.edulify<span class="pl-pds">"</span></span> <span class="pl-k">%%</span> <span class="pl-s"><span class="pl-pds">"</span>sitemap-module<span class="pl-pds">"</span></span> <span class="pl-k">%</span> <span class="pl-s"><span class="pl-pds">"</span>2.1.0<span class="pl-pds">"</span></span>
   )
 
   <span class="pl-k">val</span> <span class="pl-en">main</span> <span class="pl-k">=</span> play.<span class="pl-en">Project</span>(appName, appVersion, appDependencies).settings(
@@ -117,7 +121,8 @@ libraryDependencies <span class="pl-k">++</span><span class="pl-k">=</span> <spa
     resolvers <span class="pl-k">+</span><span class="pl-k">=</span> <span class="pl-en">Resolver</span>.url(<span class="pl-s"><span class="pl-pds">"</span>Edulify Repository<span class="pl-pds">"</span></span>, url(<span class="pl-s"><span class="pl-pds">"</span>https://edulify.github.io/modules/releases/<span class="pl-pds">"</span></span>))(<span class="pl-en">Resolver</span>.ivyStylePatterns)
   )
 
-}</pre></div>
+}
+</pre></div>
 
 <p>Don't forget to add the resolver to your list of resolvers.</p>
 
@@ -184,6 +189,8 @@ sitemap {
   }
   baseUrl   = "http://localhost:9000"
   providers = "sitemap.providers.ArticlesUrlProvider"
+  initialDelay = "1 minute"
+  executionInterval = "2 hours"
 }
 
 akka {
