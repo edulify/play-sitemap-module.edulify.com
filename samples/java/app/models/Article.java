@@ -1,10 +1,10 @@
 package models;
 
+import com.avaje.ebean.Model;
+
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-
-import play.db.ebean.Model;
 
 @Entity
 public class Article extends Model {
@@ -15,9 +15,7 @@ public class Article extends Model {
   public String title;
   public String content;
 
-  public static final Finder<Long, Article> find = new Finder<Long, Article>(
-    Long.class, Article.class
-  );
+  public static final Finder<Long, Article> find = new Finder<>(Article.class);
 
   @Override
   public void save() {

@@ -10,13 +10,13 @@ import org.junit.Test;
 
 import com.redfin.sitemapgenerator.WebSitemapGenerator;
 
-import play.test.FakeApplication;
+import play.Application;
 import play.test.Helpers;
 
 public class AnnotationUrlProviderTest {
 
   private static final File baseDir = new File("/tmp");
-  private static FakeApplication application;
+  private static Application application;
 
   @BeforeClass
   public static void startApp() {

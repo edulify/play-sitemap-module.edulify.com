@@ -8,12 +8,13 @@ import org.junit.Test;
 import play.mvc.Call;
 import play.mvc.Http;
 import play.mvc.Result;
-import play.test.FakeApplication;
+
+import play.Application;
 import play.test.Helpers;
 
 public class SitemapControllerTest {
 
-  private static FakeApplication application;
+  private static Application application;
 
   @BeforeClass
   public static void startApp() {
@@ -26,7 +27,7 @@ public class SitemapControllerTest {
     Call action = routes.Sitemaps.sitemap("-fake");
     Http.RequestBuilder request = Helpers.fakeRequest(action);
     Result result = Helpers.route(request);
-    Assertions.assertThat(Helpers.status(result)).isEqualTo(Helpers.NOT_FOUND);
+    Assertions.assertThat(result.status()).isEqualTo(Helpers.NOT_FOUND);
   }
 
   @Test @SuppressWarnings("rawtypes")
@@ -34,7 +35,7 @@ public class SitemapControllerTest {
     Call action = routes.Sitemaps.sitemap("-blog");
     Http.RequestBuilder request = Helpers.fakeRequest(action);
     Result result = Helpers.route(request);
-    Assertions.assertThat(Helpers.status(result)).isEqualTo(Helpers.OK);
+    Assertions.assertThat(result.status()).isEqualTo(Helpers.OK);
   }
 
   @Test @SuppressWarnings("rawtypes")
@@ -42,7 +43,7 @@ public class SitemapControllerTest {
     Call action = routes.Sitemaps.sitemap("");
     Http.RequestBuilder request = Helpers.fakeRequest(action);
     Result result = Helpers.route(request);
-    Assertions.assertThat(Helpers.status(result)).isEqualTo(Helpers.OK);
+    Assertions.assertThat(result.status()).isEqualTo(Helpers.OK);
   }
 
   @Test @SuppressWarnings("rawtypes")
@@ -50,7 +51,7 @@ public class SitemapControllerTest {
     Call action = routes.Sitemaps.sitemap("_index");
     Http.RequestBuilder request = Helpers.fakeRequest(action);
     Result result = Helpers.route(request);
-    Assertions.assertThat(Helpers.status(result)).isEqualTo(Helpers.OK);
+    Assertions.assertThat(result.status()).isEqualTo(Helpers.OK);
   }
 
   @Test @SuppressWarnings("rawtypes")
@@ -58,7 +59,7 @@ public class SitemapControllerTest {
     Call action = routes.Sitemaps.sitemap("../conf/application.conf");
     Http.RequestBuilder request = Helpers.fakeRequest(action);
     Result result = Helpers.route(request);
-    Assertions.assertThat(Helpers.status(result)).isEqualTo(Helpers.NOT_FOUND);
+    Assertions.assertThat(result.status()).isEqualTo(Helpers.NOT_FOUND);
   }
 
   @Test @SuppressWarnings("rawtypes")
@@ -66,7 +67,7 @@ public class SitemapControllerTest {
     Call action = routes.Sitemaps.sitemap("javascripts");
     Http.RequestBuilder request = Helpers.fakeRequest(action);
     Result result = Helpers.route(request);
-    Assertions.assertThat(Helpers.status(result)).isEqualTo(Helpers.NOT_FOUND);
+    Assertions.assertThat(result.status()).isEqualTo(Helpers.NOT_FOUND);
   }
 
   @AfterClass
