@@ -5,7 +5,7 @@ import static java.lang.String.format;
 import java.io.File;
 
 import play.Configuration;
-import play.Play;
+import play.Environment;
 import play.mvc.Result;
 import play.mvc.Controller;
 
@@ -15,9 +15,12 @@ public class Sitemaps extends Controller {
 
   private Configuration configuration;
 
+  private Environment environment;
+
   @Inject
-  public Sitemaps(Configuration configuration) {
+  public Sitemaps(Configuration configuration, Environment environment) {
     this.configuration = configuration;
+    this.environment = environment;
   }
 
   public Result sitemap(String sitemapSuffix) {
@@ -37,7 +40,7 @@ public class Sitemaps extends Controller {
 
   private File baseDir() {
     String baseDir = configuration.getString("sitemap.baseDir");
-    return baseDir != null ? new File(baseDir) : Play.application().getFile("public");
+    return baseDir != null ? new File(baseDir) : environment.getFile("public");
   }
 
   private boolean canDelivery(File file) {
