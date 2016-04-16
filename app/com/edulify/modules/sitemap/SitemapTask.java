@@ -13,15 +13,15 @@ public class SitemapTask implements Runnable {
     private SitemapConfig sitemapConfig;
     private SitemapProviders sitemapProviders;
 
-    // Indicates the application is running, see #22 for more details
-    private boolean running = true;
+    // Indicates the application is shutting down, see #22 for more details
+    private boolean shuttingDown = false;
 
     @Inject
     public SitemapTask(SitemapConfig sitemapConfig, SitemapProviders providers, ApplicationLifecycle lifecycle) {
         this.sitemapConfig = sitemapConfig;
         this.sitemapProviders = providers;
         lifecycle.addStopHook(() -> {
-            this.running = false;
+            this.shuttingDown = true;
             return CompletableFuture.completedFuture(null);
         });
     }
@@ -29,7 +29,7 @@ public class SitemapTask implements Runnable {
     @Override
     public void run() {
         // Akka triggers tasks also when it is shutting down
-        if (!running) return;
+        if (shuttingDown) return;
 
         String baseUrl = sitemapConfig.getBaseUrl();
         try {
