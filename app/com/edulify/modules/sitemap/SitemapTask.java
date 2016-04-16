@@ -2,10 +2,8 @@ package com.edulify.modules.sitemap;
 
 import com.redfin.sitemapgenerator.WebSitemapGenerator;
 import play.inject.ApplicationLifecycle;
-import play.Play;
 
 import javax.inject.Inject;
-import java.io.File;
 import java.net.MalformedURLException;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -34,14 +32,8 @@ public class SitemapTask implements Runnable {
         if (!running) return;
 
         String baseUrl = sitemapConfig.getBaseUrl();
-        String baseDir = sitemapConfig.getBaseDir();
-        if (baseDir == null) {
-            // This should be removed in a next release and an Exception
-            // will be thrown when baseDir is not configured.
-            baseDir = Play.application().getFile("public").getAbsolutePath();
-        }
         try {
-            WebSitemapGenerator generator = new WebSitemapGenerator(baseUrl, new File(baseDir));
+            WebSitemapGenerator generator = new WebSitemapGenerator(baseUrl, sitemapConfig.getBaseDir());
             List<UrlProvider> providers = sitemapProviders.getProviders();
             for (UrlProvider urlProvider : providers) {
                 urlProvider.addUrlsTo(generator);

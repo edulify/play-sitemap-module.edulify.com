@@ -4,8 +4,6 @@ import static java.lang.String.format;
 
 import java.io.File;
 
-import play.Configuration;
-import play.Environment;
 import play.mvc.Result;
 import play.mvc.Controller;
 
@@ -13,19 +11,16 @@ import javax.inject.Inject;
 
 public class Sitemaps extends Controller {
 
-  private Configuration configuration;
-
-  private Environment environment;
+  private SitemapConfig configuration;
 
   @Inject
-  public Sitemaps(Configuration configuration, Environment environment) {
+  public Sitemaps(SitemapConfig configuration) {
     this.configuration = configuration;
-    this.environment = environment;
   }
 
   public Result sitemap(String sitemapSuffix) {
     String sitemap = String.format("sitemap%s.xml", sitemapSuffix);
-    File baseDir = baseDir();
+    File baseDir = configuration.getBaseDir();
     File sitemapFile = new File(baseDir, sitemap);
     play.Logger.debug("Delivering sitemap file " + sitemapFile.getAbsolutePath());
     if(canDelivery(sitemapFile)) {
@@ -38,13 +33,8 @@ public class Sitemaps extends Controller {
     return notFound();
   }
 
-  private File baseDir() {
-    String baseDir = configuration.getString("sitemap.baseDir");
-    return baseDir != null ? new File(baseDir) : environment.getFile("public");
-  }
-
   private boolean canDelivery(File file) {
-    File baseDir = baseDir();
+    File baseDir = configuration.getBaseDir();
     return  file.exists() &&
             file.isFile() &&
             file.getParentFile().equals(baseDir);

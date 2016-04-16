@@ -1,20 +1,24 @@
 package com.edulify.modules.sitemap;
 
 import play.Configuration;
+import play.Environment;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 @Singleton
 public class SitemapConfig {
 
     private Configuration configuration;
+    private Environment environment;
 
 
     @Inject
-    public SitemapConfig(Configuration configuration) {
+    public SitemapConfig(Configuration configuration, Environment environment) {
         this.configuration = configuration;
+        this.environment = environment;
     }
 
     public Long getInitialDelayInMillis() {
@@ -41,7 +45,8 @@ public class SitemapConfig {
         return configuration.getString("sitemap.baseUrl");
     }
 
-    public String getBaseDir() {
-        return configuration.getString("sitemap.baseDir");
+    public File getBaseDir() {
+        String baseDir = configuration.getString("sitemap.baseDir");
+        return baseDir == null ? environment.getFile("public") : new File(baseDir);
     }
 }
