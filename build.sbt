@@ -1,8 +1,8 @@
 name := "sitemap-module"
 
-version := "2.1.0"
+version := "2.2.0-SNAPSHOT"
 
-scalaVersion := "2.11.7"
+scalaVersion := "2.11.8"
 
 scalacOptions := Seq("-feature", "-deprecation")
 

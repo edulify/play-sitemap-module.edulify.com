@@ -1,35 +1,39 @@
 package com.edulify.modules.sitemap;
 
 import com.redfin.sitemapgenerator.WebSitemapGenerator;
-import play.Play;
+import play.inject.ApplicationLifecycle;
 
 import javax.inject.Inject;
-import java.io.File;
 import java.net.MalformedURLException;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class SitemapTask implements Runnable {
 
     private SitemapConfig sitemapConfig;
     private SitemapProviders sitemapProviders;
 
+    // Indicates the application is shutting down, see #22 for more details
+    private boolean shuttingDown = false;
+
     @Inject
-    public SitemapTask(SitemapConfig sitemapConfig, SitemapProviders providers) {
+    public SitemapTask(SitemapConfig sitemapConfig, SitemapProviders providers, ApplicationLifecycle lifecycle) {
         this.sitemapConfig = sitemapConfig;
         this.sitemapProviders = providers;
+        lifecycle.addStopHook(() -> {
+            this.shuttingDown = true;
+            return CompletableFuture.completedFuture(null);
+        });
     }
 
     @Override
     public void run() {
+        // Akka triggers tasks also when it is shutting down
+        if (shuttingDown) return;
+
         String baseUrl = sitemapConfig.getBaseUrl();
-        String baseDir = sitemapConfig.getBaseDir();
-        if (baseDir == null) {
-            // This should be removed in a next release and an Exception
-            // will be thrown when baseDir is not configured.
-            baseDir = Play.application().getFile("public").getAbsolutePath();
-        }
         try {
-            WebSitemapGenerator generator = new WebSitemapGenerator(baseUrl, new File(baseDir));
+            WebSitemapGenerator generator = new WebSitemapGenerator(baseUrl, sitemapConfig.getBaseDir());
             List<UrlProvider> providers = sitemapProviders.getProviders();
             for (UrlProvider urlProvider : providers) {
                 urlProvider.addUrlsTo(generator);
