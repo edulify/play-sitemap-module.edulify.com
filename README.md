@@ -8,7 +8,8 @@ This is a module that generates [sitemaps](http://www.sitemaps.org/) for [Play F
 
 | Playframework version | Module version |
 |:----------------------|:---------------|
-| 2.5.0                 | 2.1.0          |
+| 2.5.x                 | 2.1.1          |
+| 2.5.x                 | 2.1.0          |
 | 2.4.6                 | 2.0.0          |
 | 2.4.x                 | 2.0.0-M1       |
 | 2.3.x                 | 1.1.8          |
@@ -35,7 +36,7 @@ resolvers ++= Seq(
 ...
 
 libraryDependencies ++= Seq(
-  "com.edulify" %% "sitemap-module" % "2.1.0"
+  "com.edulify" %% "sitemap-module" % "2.1.1"
 )
 ```
 
@@ -55,7 +56,7 @@ object ApplicationBuild extends Build {
     // Add your project dependencies here,
     javaCore,
     javaJdbc,
-    "com.edulify" %% "sitemap-module" % "2.1.0"
+    "com.edulify" %% "sitemap-module" % "2.1.1"
   )
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
