@@ -1,6 +1,6 @@
 # Sitemap Generator Module
 
-This is a module that generates [sitemaps](http://www.sitemaps.org/) for [Play Framework](http://www.playframework.org/) 2.3.x and 2.4.x. It is build using [SitemapGen4j](https://github.com/dfabulich/sitemapgen4j/) to generate the sitemap files.
+This is a module that generates [sitemaps](http://www.sitemaps.org/) for [Play Framework](http://www.playframework.org/) 2.3.x, 2.4.x and 2.5.x. It is build using [SitemapGen4j](https://github.com/dfabulich/sitemapgen4j/) to generate the sitemap files.
 
 [![Build Status](https://travis-ci.org/edulify/play-sitemap-module.edulify.com.svg)](https://travis-ci.org/edulify/play-sitemap-module.edulify.com)
 
@@ -8,6 +8,7 @@ This is a module that generates [sitemaps](http://www.sitemaps.org/) for [Play F
 
 | Playframework version | Module version |
 |:----------------------|:---------------|
+| 2.5.x                 | 2.1.2          |
 | 2.5.x                 | 2.1.1          |
 | 2.5.x                 | 2.1.0          |
 | 2.4.6                 | 2.0.0          |
@@ -17,10 +18,6 @@ This is a module that generates [sitemaps](http://www.sitemaps.org/) for [Play F
 | 2.3.x                 | 1.1.6          |
 | 2.2.x                 | 1.1.5          |
 | 2.1.x                 | 1.1.3          |
-
-## About Sitemaps and SEO
-
-You can find more about sitemap and why it matters for Search Engine Optimization at [Tech Talk blog](http://techtalk.edulify.com/2013/04/09/seo-and-sitemap).
 
 ## Configuring
 
@@ -36,7 +33,7 @@ resolvers ++= Seq(
 ...
 
 libraryDependencies ++= Seq(
-  "com.edulify" %% "sitemap-module" % "2.1.1"
+  "com.edulify" %% "sitemap-module" % "2.1.2"
 )
 ```
 
@@ -56,7 +53,7 @@ object ApplicationBuild extends Build {
     // Add your project dependencies here,
     javaCore,
     javaJdbc,
-    "com.edulify" %% "sitemap-module" % "2.1.1"
+    "com.edulify" %% "sitemap-module" % "2.1.2"
   )
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
