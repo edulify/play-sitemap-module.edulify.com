@@ -253,7 +253,7 @@ If you are using the `Sitemaps` controller from the module, you can always use t
 
 Since Play only binds EntityManager when handling requests, you will get errors if you just try to use EntityManager directly inside the `UrlProvider`. In fact, even if you try `@Transactional` annotation, which is tightly coupled with [play actions composition](http://www.playframework.com/documentation/2.4.x/JavaActionsComposition), you will get a error complaining that there is no EntityManager bounded to the thread.
 
-Whe using JPA, the correct way to query database outside of action thread is "*wrapping the call in `JPA.withTransaction`*":
+When using JPA, the correct way to query database outside of action thread is "*wrapping the call in `JPA.withTransaction`*":
 
 ```java
 @Override
