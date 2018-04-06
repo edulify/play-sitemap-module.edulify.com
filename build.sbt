@@ -1,8 +1,8 @@
 name := "sitemap-module"
 
-version := "2.1.2"
+version := "3.0.0"
 
-scalaVersion := "2.11.8"
+scalaVersion := "2.12.4"
 
 scalacOptions := Seq("-feature", "-deprecation")
 
@@ -10,6 +10,7 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
 libraryDependencies ++= Seq(
   javaCore,
+  guice,
   "com.github.dfabulich" % "sitemapgen4j" % "1.0.5"
 )
 
