@@ -38,16 +38,4 @@ public class SitemapJob {
                         executionContext
                 );
     }
-
-    /**
-     * @deprecated Use com.edulify.modules.sitemap.SitemapModule instead.
-     */
-    @Deprecated
-    public static void startSitemapGenerator() {
-        Application application = Play.application();
-        ActorSystem actorSystem = Akka.system();
-        SitemapConfig sitemapConfig = application.injector().instanceOf(SitemapConfig.class);
-        SitemapTask task = application.injector().instanceOf(SitemapTask.class);
-        new SitemapJob(actorSystem, sitemapConfig, task).init();
-    }
 }
