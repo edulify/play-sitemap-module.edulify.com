@@ -1,6 +1,6 @@
 # Sitemap Generator Module
 
-This is a module that generates [sitemaps](http://www.sitemaps.org/) for [Play Framework](http://www.playframework.org/) 2.3.x, 2.4.x and 2.5.x. It is build using [SitemapGen4j](https://github.com/dfabulich/sitemapgen4j/) to generate the sitemap files.
+This is a module that generates [sitemaps](http://www.sitemaps.org/) for [Play Framework](http://www.playframework.org/) 2.3.x, 2.4.x, 2.5.x and 2.6.12. It is build using [SitemapGen4j](https://github.com/dfabulich/sitemapgen4j/) to generate the sitemap files.
 
 [![Build Status](https://travis-ci.org/edulify/play-sitemap-module.edulify.com.svg)](https://travis-ci.org/edulify/play-sitemap-module.edulify.com)
 
@@ -8,6 +8,7 @@ This is a module that generates [sitemaps](http://www.sitemaps.org/) for [Play F
 
 | Playframework version | Module version |
 |:----------------------|:---------------|
+| 2.6.12                | 3.0.0          |
 | 2.5.x                 | 2.1.2          |
 | 2.5.x                 | 2.1.1          |
 | 2.5.x                 | 2.1.0          |
@@ -33,7 +34,7 @@ resolvers ++= Seq(
 ...
 
 libraryDependencies ++= Seq(
-  "com.edulify" %% "sitemap-module" % "2.1.2"
+  "com.edulify" %% "sitemap-module" % "3.0.0"
 )
 ```
 
@@ -53,7 +54,7 @@ object ApplicationBuild extends Build {
     // Add your project dependencies here,
     javaCore,
     javaJdbc,
-    "com.edulify" %% "sitemap-module" % "2.1.2"
+    "com.edulify" %% "sitemap-module" % "3.0.0"
   )
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
