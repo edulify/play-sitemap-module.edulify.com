@@ -10,7 +10,7 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
 libraryDependencies ++= Seq(
   javaCore,
-  "com.github.dfabulich" % "sitemapgen4j" % "1.0.5"
+  "com.github.dfabulich" % "sitemapgen4j" % "1.1.2"
 )
 
 organization := "com.edulify"
